@@ -44,9 +44,6 @@ resource "aws_subnet" "private" {
   # IP Range of this subnet
   cidr_block = var.private-subnet
   
-  # Data Center of this subnet.
-  availability_zone = "ap-south-1b"
-  
   tags = {
     Name = "Private Subnet"
   }
