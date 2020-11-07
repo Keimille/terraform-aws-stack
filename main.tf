@@ -115,7 +115,7 @@ resource "aws_security_group" "webserver-sg" {
 
   # Name of the security Group
   name = "webserver-sg"
-  
+
   # VPC ID in which Security group has to be created!
   vpc_id = aws_vpc.my-vpc.id
 
@@ -125,7 +125,7 @@ resource "aws_security_group" "webserver-sg" {
     from_port   = 80
     to_port     = 80
 
-    
+
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -147,4 +147,18 @@ resource "aws_security_group" "webserver-sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_instance" "web_server" {
+  ami           = var.amazon-linux
+  instance_type = var.instance-type
+  subnet_id     = aws_subnet.private.id
+  private_ip    = var.web-private-ip
+}
+
+resource "aws_instance" "nginx" {
+  ami           = var.amazon-linux
+  instance_type = var.instance-type
+  subnet_id     = aws_subnet.private.id
+  private_ip    = var.web-private-ip2
 }
