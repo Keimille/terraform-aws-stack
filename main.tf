@@ -115,7 +115,7 @@ resource "aws_security_group" "webserver-sg" {
 
   # Name of the security Group
   name = "webserver-sg"
-  
+
   # VPC ID in which Security group has to be created!
   vpc_id = aws_vpc.my-vpc.id
 
@@ -125,7 +125,7 @@ resource "aws_security_group" "webserver-sg" {
     from_port   = 80
     to_port     = 80
 
-    
+
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -147,4 +147,23 @@ resource "aws_security_group" "webserver-sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_instance" "web_server" {
+  ami                         = var.centos
+  vpc_security_group_ids      = ["${aws_security_group.webserver-sg.id}"]
+  instance_type               = var.instance-type
+  subnet_id                   = aws_subnet.public.id
+  associate_public_ip_address = true
+
+  user_data = <<-EOF
+          #!/bin/bash 
+          yum install httpd -y
+          echo "hello world" > /var/www/html/index.html
+          yum update -y
+          systemctl start httpd
+          firewall-cmd --zone=public --permanent --add-service=http
+          firewall-cmd --zone=public --permanent --add-service=https
+          firewall-cmd --reload
+          EOF
 }
