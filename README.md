@@ -1,2 +1,2 @@
 # terraform-aws-stack
-Module for alb, nginx docker container and web server for simple hello world test
+Module for VPC, IGW, Security group, route table, ec2 resource for learning.
