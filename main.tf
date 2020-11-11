@@ -150,15 +150,20 @@ resource "aws_security_group" "webserver-sg" {
 }
 
 resource "aws_instance" "web_server" {
-  ami           = var.amazon-linux
-  instance_type = var.instance-type
-  subnet_id     = aws_subnet.private.id
-  private_ip    = var.web-private-ip
-}
+  ami                         = var.centos
+  vpc_security_group_ids      = ["${aws_security_group.webserver-sg.id}"]
+  instance_type               = var.instance-type
+  subnet_id                   = aws_subnet.public.id
+  associate_public_ip_address = true
 
-resource "aws_instance" "nginx" {
-  ami           = var.amazon-linux
-  instance_type = var.instance-type
-  subnet_id     = aws_subnet.private.id
-  private_ip    = var.web-private-ip2
+  user_data = <<-EOF
+          #!/bin/bash 
+          yum install httpd -y
+          echo "hello world" > /var/www/html/index.html
+          yum update -y
+          systemctl start httpd
+          firewall-cmd --zone=public --permanent --add-service=http
+          firewall-cmd --zone=public --permanent --add-service=https
+          firewall-cmd --reload
+          EOF
 }
