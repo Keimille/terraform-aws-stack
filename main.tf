@@ -150,7 +150,7 @@ resource "aws_security_group" "webserver-sg" {
 }
 
 resource "aws_instance" "web_server" {
-  ami                         = var.centos
+  ami                         = var.ami
   vpc_security_group_ids      = ["${aws_security_group.webserver-sg.id}"]
   instance_type               = var.instance-type
   subnet_id                   = aws_subnet.public.id
