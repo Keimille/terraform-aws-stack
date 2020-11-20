@@ -11,7 +11,7 @@ variable "public-subnet" {
 }
 
 variable "private-subnet" {
-  description "The CIDR of the Public Subnet. This should be overwritten"
+  description = "The CIDR of the Public Subnet. This should be overwritten"
   default = "0.0.0.0/0"
 }
 
@@ -29,7 +29,7 @@ variable "instance-type" {
 
 variable "ec2-private-ip" {
   description = "Assign a private ip to ec2 instabceif desired. Must be over written and within a usable address range of private subnet"
-  type = "string"
+  type = string
   default = "0.0.0.0"
 }
 
