@@ -1,8 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
-
 resource "aws_vpc" "my-vpc" {
   cidr_block = var.cidr
 
@@ -124,6 +119,16 @@ resource "aws_security_group" "webserver-sg" {
     description = "HTTP for webserver"
     from_port   = 80
     to_port     = 80
+
+
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "HTTPS for webserver"
+    from_port   = 443
+    to_port     = 443
 
 
     protocol    = "tcp"
