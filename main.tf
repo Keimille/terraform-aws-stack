@@ -57,7 +57,7 @@ resource "aws_internet_gateway" "Internet_Gateway" {
     aws_subnet.private
   ]
 
-  # VPC in which it has to be created!
+  # VPC in which it has to be created
   vpc_id = aws_vpc.my-vpc.id
 
   tags = {
@@ -116,10 +116,10 @@ resource "aws_security_group" "webserver-sg" {
   # Name of the security Group
   name = "webserver-sg"
 
-  # VPC ID in which Security group has to be created!
+  # VPC ID in which Security group has to be created
   vpc_id = aws_vpc.my-vpc.id
 
-  # Created an inbound rule for webserver access!
+  # Created an inbound rule for webserver access
   ingress {
     description = "HTTP for webserver"
     from_port   = 80
@@ -150,7 +150,7 @@ resource "aws_security_group" "webserver-sg" {
 }
 
 resource "aws_instance" "web_server" {
-  ami                         = var.centos
+  ami                         = var.ami
   vpc_security_group_ids      = ["${aws_security_group.webserver-sg.id}"]
   instance_type               = var.instance-type
   subnet_id                   = aws_subnet.public.id
