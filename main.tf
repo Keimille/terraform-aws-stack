@@ -161,14 +161,7 @@ resource "aws_instance" "web_server" {
   subnet_id                   = aws_subnet.public.id
   associate_public_ip_address = true
 
-  user_data = <<-EOF
-          #!/bin/bash 
-          yum install httpd -y
-          echo "hello world" > /var/www/html/index.html
-          yum update -y
-          systemctl start httpd
-          firewall-cmd --zone=public --permanent --add-service=http
-          firewall-cmd --zone=public --permanent --add-service=https
-          firewall-cmd --reload
-          EOF
+  user_data = var.user_data
+  user_data_base64 = var.user_data_base_64
+  key_name = var.key_name
 }

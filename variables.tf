@@ -28,11 +28,29 @@ variable "instance-type" {
 }
 
 variable "ec2-private-ip" {
-  description = "Assign a private ip to ec2 instabceif desired. Must be over written and within a usable address range of private subnet"
+  description = "Assign a private ip to ec2 instabceif desired. Must be overwritten and within a usable address range of private subnet"
   type        = string
   default     = "0.0.0.0"
 }
 
 variable "web-private-ip2" {
   default = "10.0.1.6"
+}
+
+variable "user_data" {
+  description = "User data to provide when launching the instance"
+  type        = string
+  default     = null
+}
+
+variable "user_data_base64" {
+  description = "Use base64-encoded data directly"
+  type        = string
+  default     = null
+}
+
+variable "key_name" {
+  description = "The key name for the instance"
+  type        = string
+  default     = ""
 }
