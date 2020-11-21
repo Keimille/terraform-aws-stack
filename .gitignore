@@ -35,4 +35,4 @@ override.tf.json
 terraform.rc
 .terraform.lock.hcl
 
-.code-workspace
+*.code-workspace
