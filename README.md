@@ -31,3 +31,19 @@ provider "aws" {
   region = "us-east-1"
 }
 ~~~
+
+### Using the user data option
+If desired, use similar commands in user data to test configuration after build
+
+~~~
+<<-EOF
+          #!/bin/bash 
+          yum install httpd -y
+          echo "hello world" > /var/www/html/index.html
+          yum update -y
+          systemctl start httpd
+          firewall-cmd --zone=public --permanent --add-service=http
+          firewall-cmd --zone=public --permanent --add-service=https
+          firewall-cmd --reload
+          EOF
+~~~
