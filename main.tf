@@ -3,7 +3,7 @@ resource "aws_vpc" "my-vpc" {
 
   enable_dns_hostnames = true
   tags = {
-    Name = "my-vpc"
+    Name = var.vpc_tag_value
   }
 }
 
@@ -159,9 +159,10 @@ resource "aws_instance" "web_server" {
   vpc_security_group_ids      = ["${aws_security_group.webserver-sg.id}"]
   instance_type               = var.instance-type
   subnet_id                   = aws_subnet.public.id
+  count                       = var.ec2count
   associate_public_ip_address = true
 
-  user_data = var.user_data
+  user_data        = var.user_data
   user_data_base64 = var.user_data_base_64
-  key_name = var.key_name
+  key_name         = var.key_name
 }

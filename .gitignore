@@ -36,3 +36,4 @@ terraform.rc
 .terraform.lock.hcl
 
 *.code-workspace
+terra.code-workspcae

@@ -1,3 +1,8 @@
+variable "name" {
+  description = "Generic name variable"
+  type        = string
+  default     = "Project Name"
+}
 variable "cidr" {
   description = "The CIDR of the VPC. This should be overwritten"
   type        = string
@@ -43,7 +48,7 @@ variable "user_data" {
   default     = null
 }
 
-variable "user_data_base64" {
+variable "user_data_base_64" {
   description = "Use base64-encoded data directly"
   type        = string
   default     = null
@@ -53,4 +58,17 @@ variable "key_name" {
   description = "The key name for the instance"
   type        = string
   default     = ""
+}
+
+
+variable "vpc_tag_value" {
+  description = "The value for the name tag of the vpc"
+  type        = string
+  default     = " "
+}
+
+variable "ec2count" {
+  description = "The number of ec2 instances to create. 1 is the default."
+  type        = string
+  default     = "1"
 }
