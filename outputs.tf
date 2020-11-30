@@ -9,7 +9,8 @@ output "vpc_arn" {
 }
 
 output "webserver_ips" {
-  value = concat(aws_instance.web_server.*.public_ip)
+  description = "The public IP address of created web server resource"
+  value       = concat(aws_instance.web_server.*.public_ip)
 }
 
 output "default_security_group_id" {
